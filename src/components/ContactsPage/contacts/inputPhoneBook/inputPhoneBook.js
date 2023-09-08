@@ -1,6 +1,6 @@
 import React from "react";
 import { useInputParams } from "components/ContactsPage/ContactsHooks/useInputParams";
-import { Button, Div, Form, Input, Label } from "./inputPhoneBook.styled";
+import { Button, Form, Input, Label } from "./inputPhoneBook.styled";
 
 export default function InputPhoneBook() {
   const {

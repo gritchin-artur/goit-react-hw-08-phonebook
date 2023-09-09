@@ -17,9 +17,9 @@ export function App() {
   const dispatch = useDispatch();
   const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
 
-  useEffect(() => {
-    dispatch(authOperations.fetchCurrentUser());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(authOperations.fetchCurrentUser());
+  // }, [dispatch]);
 
   return (
     <div>
@@ -50,7 +50,7 @@ export function App() {
               <Route
                 path="register"
                 element={
-                  <PublicRoute>
+                  <PublicRoute restricted>
                     <SingUp />
                   </PublicRoute>
                 }
@@ -59,7 +59,7 @@ export function App() {
                 path="login"
                 restricted
                 element={
-                  <PublicRoute>
+                  <PublicRoute restricted>
                     <LogIn />
                   </PublicRoute>
                 }

@@ -50,7 +50,7 @@ export function App() {
               <Route
                 path="register"
                 element={
-                  <PublicRoute restricted>
+                  <PublicRoute redirectTo="/contacts" restricted>
                     <SingUp />
                   </PublicRoute>
                 }
@@ -59,7 +59,7 @@ export function App() {
                 path="login"
                 restricted
                 element={
-                  <PublicRoute>
+                  <PublicRoute redirectTo="/contacts" restricted>
                     <LogIn />
                   </PublicRoute>
                 }

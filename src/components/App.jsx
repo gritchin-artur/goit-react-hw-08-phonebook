@@ -1,12 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./Layout/Layout";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import PrivateRoute from "../Routes/PrivatRoute/PrivateRoute";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import authSelectors from "../redux/auth/auth-selectors";
 import { Toaster } from "react-hot-toast";
 import PublicRoute from "../Routes/PublicRoute/PublicRoute";
-// import authOperations from "../redux/auth/auth-operations";
+import authOperations from "../redux/auth/auth-operations";
 
 const Home = lazy(() => import("../pages/Home/Home"));
 const PageContacts = lazy(() => import("../pages/PageContacts/PageContacts"));
@@ -14,12 +14,12 @@ const LogIn = lazy(() => import("../pages/LogIn/LogIn"));
 const SingUp = lazy(() => import("../pages/SingUp/SingUp"));
 
 export function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
 
-  // useEffect(() => {
-  //   dispatch(authOperations.fetchCurrentUser());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
 
   return (
     <div>

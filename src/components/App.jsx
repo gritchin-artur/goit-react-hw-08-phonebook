@@ -1,17 +1,17 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Layout } from "./Route/Layout/Layout";
+import { Layout } from "./Layout/Layout";
 import { Suspense, lazy, useEffect } from "react";
-import PrivateRoute from "./Route/PrivatRoute/PrivateRoute";
+import PrivateRoute from "../Routes/PrivatRoute/PrivateRoute";
 import { useDispatch, useSelector } from "react-redux";
-import authSelectors from "./redux/auth/auth-selectors";
+import authSelectors from "../redux/auth/auth-selectors";
 import { Toaster } from "react-hot-toast";
-import PublicRoute from "./Route/PublicRoute/PublicRoute";
-import authOperations from "./redux/auth/auth-operations";
+import PublicRoute from "../Routes/PublicRoute/PublicRoute";
+import authOperations from "../redux/auth/auth-operations";
 
-const Home = lazy(() => import("../components/Route/Home/Home"));
-const PageContacts = lazy(() => import("./Route/PageContacts/PageContacts"));
-const LogIn = lazy(() => import("../components/Route/LogIn/LogIn"));
-const SingUp = lazy(() => import("../components/Route/SingUp/SingUp"));
+const Home = lazy(() => import("../pages/Home/Home"));
+const PageContacts = lazy(() => import("../pages/PageContacts/PageContacts"));
+const LogIn = lazy(() => import("../pages/LogIn/LogIn"));
+const SingUp = lazy(() => import("../pages/SingUp/SingUp"));
 
 export function App() {
   const dispatch = useDispatch();
@@ -50,15 +50,16 @@ export function App() {
               <Route
                 path="register"
                 element={
-                  <PublicRoute>
+                  <PublicRoute restricted>
                     <SingUp />
                   </PublicRoute>
                 }
               />
               <Route
                 path="login"
+                restricted
                 element={
-                  <PublicRoute>
+                  <PublicRoute restricted>
                     <LogIn />
                   </PublicRoute>
                 }

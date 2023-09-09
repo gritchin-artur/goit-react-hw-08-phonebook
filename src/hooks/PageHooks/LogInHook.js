@@ -33,3 +33,5 @@ export const useLogInHook = () => {
 
   return { handleChange, handleSubmit, email, password };
 };
+
+export default useLogInHook;

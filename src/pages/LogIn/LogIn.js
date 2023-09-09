@@ -1,4 +1,4 @@
-import { useLogInHook } from "../../hooks/PageHooks/LogInHook";
+import useLogInHook from "../../hooks/PageHooks/LogInHook";
 import { Div, H2, Form, Input, DivForm, Button } from "./LogIn.styled";
 
 const LogIn = () => {

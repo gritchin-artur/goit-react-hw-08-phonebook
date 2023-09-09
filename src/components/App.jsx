@@ -59,7 +59,7 @@ export function App() {
                 path="login"
                 restricted
                 element={
-                  <PublicRoute restricted>
+                  <PublicRoute>
                     <LogIn />
                   </PublicRoute>
                 }

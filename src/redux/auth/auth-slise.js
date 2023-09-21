@@ -9,6 +9,33 @@ const initialState = {
   isFetchingCurrentUser: false,
 };
 
+const handleLogOutFulfilled = (state) => {
+  state.user = { name: null, email: null };
+  state.token = null;
+  state.isLoggedIn = false;
+  state.isFetchingCurrentUser = false;
+};
+
+const handleFetchCurrentUserPending = (state) => {
+  state.isRefreshing = true;
+};
+
+const handleFetchCurrentUserFulfilled = (state, { payload }) => {
+  state.user = payload;
+  state.isLoggedIn = true;
+  state.isFetchingCurrentUser = false;
+};
+
+const handleFetchCurrentUserReject = (state) => {
+  state.isFetchingCurrentUser = false;
+};
+
+const handleRegisterLogInFulfilled = (state, { payload }) => {
+  state.user = payload.user;
+  state.token = payload.token;
+  state.isLoggedIn = true;
+};
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -16,37 +43,26 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      .addCase(authOperations.logOut.fulfilled, (state) => {
-        state.user = { name: null, email: null };
-        state.token = null;
-        state.isLoggedIn = false;
-        state.isFetchingCurrentUser = false;
-      })
-      .addCase(authOperations.fetchCurrentUser.pending, (state) => {
-        state.isRefreshing = true;
-      })
+      .addCase(authOperations.logOut.fulfilled, handleLogOutFulfilled)
+      .addCase(
+        authOperations.fetchCurrentUser.pending,
+        handleFetchCurrentUserPending
+      )
       .addCase(
         authOperations.fetchCurrentUser.fulfilled,
-        (state, { payload }) => {
-          state.user = payload;
-          state.isLoggedIn = true;
-          state.isFetchingCurrentUser = false;
-        }
+        handleFetchCurrentUserFulfilled
       )
-      .addCase(authOperations.fetchCurrentUser.rejected, (state) => {
-        state.isFetchingCurrentUser = false;
-      })
+      .addCase(
+        authOperations.fetchCurrentUser.rejected,
+        handleFetchCurrentUserReject
+      )
 
       .addMatcher(
         isAnyOf(
           authOperations.register.fulfilled,
           authOperations.logIn.fulfilled
         ),
-        (state, { payload }) => {
-          state.user = payload.user;
-          state.token = payload.token;
-          state.isLoggedIn = true;
-        }
+        handleRegisterLogInFulfilled
       );
   },
 });
